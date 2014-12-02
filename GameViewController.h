@@ -17,5 +17,5 @@
 @property(nonatomic,assign)id delegate;
 @property(nonatomic,retain) IBOutlet UILabel *score;
 
--(IBAction)endGame;
+-(void)endGame;
 @end

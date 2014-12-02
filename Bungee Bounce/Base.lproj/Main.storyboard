@@ -34,13 +34,13 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="High Score" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="I82-K9-4J3">
-                                <rect key="frame" x="142" y="269" width="87" height="27"/>
+                                <rect key="frame" x="142" y="275" width="87" height="27"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.82745098039215681" green="0.80000000000000004" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="0" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="A8s-Q5-X8O">
-                                <rect key="frame" x="154" y="304" width="63" height="21"/>
+                                <rect key="frame" x="154" y="299" width="63" height="21"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <color key="textColor" red="0.82745098039215681" green="0.80000000000000004" blue="0.31372549019607843" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
@@ -80,16 +80,6 @@
                                 <color key="textColor" red="0.82745098039999998" green="0.80000000000000004" blue="0.31372549020000001" alpha="1" colorSpace="calibratedRGB"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mGg-c1-RZU">
-                                <rect key="frame" x="124" y="504" width="73" height="30"/>
-                                <state key="normal" title="End Game">
-                                    <color key="titleColor" red="0.46534609094321255" green="0.24518545029197253" blue="0.72952178030303028" alpha="1" colorSpace="calibratedRGB"/>
-                                    <color key="titleShadowColor" white="0.5" alpha="1" colorSpace="calibratedWhite"/>
-                                </state>
-                                <connections>
-                                    <action selector="endGame" destination="GIT-Xh-eMa" eventType="touchUpInside" id="SO1-Gi-SO1"/>
-                                </connections>
-                            </button>
                         </subviews>
                         <color key="backgroundColor" red="0.46965751262626265" green="0.46965751262626265" blue="0.46965751262626265" alpha="1" colorSpace="calibratedRGB"/>
                     </view>

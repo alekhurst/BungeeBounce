@@ -24,7 +24,8 @@
 
 -(void)sendDataToViewController:(NSString *)score
 {
-    self.high_score.text = score;
+    if([score intValue] >= [self.high_score.text intValue])
+        self.high_score.text = score;
 }
 
 - (void)viewDidLoad {

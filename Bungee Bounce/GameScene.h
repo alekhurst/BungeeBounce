@@ -7,6 +7,7 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "GameViewController.h"
 
 @interface GameScene : SKScene <SKPhysicsContactDelegate>
 {
@@ -16,9 +17,18 @@
     SKShapeNode *box;
 }
 
+@property (nonatomic, weak) GameViewController *gameViewController;
+
 @property BOOL contentCreated;
+
 @property int current_score;
+
 @property int start_paddle_x;
+
+@property (nonatomic) SKNode *leftWall;
+@property (nonatomic) SKNode *rightWall;
+@property (nonatomic) SKNode *bottomWall;
+
 @property uint32_t ballCategory;
 @property uint32_t paddleCategory;
 @property uint32_t boxCategory;
@@ -27,6 +37,7 @@
 
 -(void)createBox;
 -(void)createBall;
+-(void)createWalls;
 -(void)createPaddle;
 -(void)updatePaddlePhysics;
 

@@ -13,7 +13,7 @@
 @implementation GameViewController
 @synthesize delegate;
 
-- (IBAction)endGame
+- (void)endGame
 {
     [delegate sendDataToViewController: self.score.text];
     [self.presentingViewController dismissViewControllerAnimated:YES completion:nil];
@@ -21,12 +21,13 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.score.text = @"1047";
+    self.score.text = @"0";
 }
 
 - (void)viewWillAppear:(BOOL)animated
 {
     GameScene* hello = [[GameScene alloc] initWithSize:CGSizeMake(768,1024)];
+    hello.gameViewController = self;
     SKView *spriteView = (SKView *) self.view;
     [spriteView presentScene: hello];
 }

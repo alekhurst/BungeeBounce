@@ -10,6 +10,7 @@
 #import "GameViewController.h"
 
 @implementation GameScene
+@synthesize gameViewController;
 @synthesize contentCreated;
 @synthesize ballCategory;
 @synthesize paddleCategory;
@@ -17,6 +18,9 @@
 @synthesize screenCategory;
 @synthesize current_score;
 @synthesize start_paddle_x;
+@synthesize leftWall;
+@synthesize rightWall;
+@synthesize bottomWall;
 
 - (void)didMoveToView: (SKView *) view
 {
@@ -36,21 +40,14 @@
     self.physicsWorld.contactDelegate = self;
     self.physicsWorld.gravity = CGVectorMake(0.0, -12);
     
-    SKPhysicsBody* borderBody = [SKPhysicsBody bodyWithEdgeLoopFromRect:self.frame];
-    self.physicsBody = borderBody;
-    self.physicsBody.friction = 0.0f;
-    self.name = @"screen";
-    
     ballCategory =  0x1 << 0;
     paddleCategory =  0x1 << 1;
     boxCategory = 0x1 << 2;
     screenCategory = 0x1 << 3;
     
-    /* Create Ball */
-    [self createBall];
-    
-    /* Create First Box */
+    [self createWalls];
     [self createBox];
+    [self createBall];
 }
 
 - (void)touchesBegan:(NSSet *)touches withEvent:(UIEvent *)event
@@ -91,7 +88,7 @@
     
     ball.physicsBody = [SKPhysicsBody bodyWithCircleOfRadius:40];
     ball.physicsBody.categoryBitMask = ballCategory;
-    ball.physicsBody.collisionBitMask = paddleCategory;
+    ball.physicsBody.collisionBitMask = paddleCategory | screenCategory;
     ball.physicsBody.contactTestBitMask = paddleCategory | boxCategory | screenCategory;
     ball.physicsBody.restitution = 1;
     ball.physicsBody.linearDamping = 0;
@@ -99,9 +96,44 @@
     
     [self addChild:ball];
 }
+
+- (void)createWalls {
+    CGPoint topLeftPoint = CGPointMake(80, self.frame.size.height + 1000);
+    CGPoint topRightPoint = CGPointMake(self.frame.size.width - 80, self.frame.size.height + 1000);
+    CGPoint bottomLeftPoint = CGPointMake(80, -100);
+    CGPoint bottomRightPoint = CGPointMake(self.frame.size.width - 80, -100);
+    
+    /* Create Left Wall */
+    leftWall = [SKShapeNode node];
+    leftWall.name = @"leftWall";
+    
+    leftWall.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:topLeftPoint toPoint:bottomLeftPoint];
+    leftWall.physicsBody.categoryBitMask = screenCategory;
+    leftWall.physicsBody.friction = 0.0f;
+    [self addChild: leftWall];
+    
+    /* Create Right Wall */
+    rightWall = [SKShapeNode node];
+    rightWall.name = @"rightWall";
+    
+    rightWall.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:topRightPoint toPoint:bottomRightPoint];
+    rightWall.physicsBody.categoryBitMask = screenCategory;
+    rightWall.physicsBody.friction = 0.0f;
+    [self addChild: rightWall];
+    
+    /* Create Bottom Wall */
+    bottomWall = [SKShapeNode node];
+    bottomWall.name = @"bottomWall";
+    
+    bottomWall.physicsBody = [SKPhysicsBody bodyWithEdgeFromPoint:bottomLeftPoint toPoint:bottomRightPoint];
+    bottomWall.physicsBody.categoryBitMask = screenCategory;
+    bottomWall.physicsBody.friction = 0.0f;
+    [self addChild: bottomWall];
+}
+
 - (void)createBox {
-    int randX = (rand() % 470) + 100;
-    int randY = (rand() % 800) + 100;
+    int randX = (rand() % ((int)self.frame.size.width - 400) ) + 200;
+    int randY = (rand() % ((int)self.frame.size.height - 300) ) + 200;
     
     CGRect boxOutline = CGRectMake(0, 0, 80.0, 80.0);
     
@@ -138,12 +170,16 @@
 
 - (void)didBeginContact:(SKPhysicsContact *)contact
 {
-    if([ contact.bodyA.node.name isEqualToString: @"box" ] || [ contact.bodyB.node.name isEqualToString: @"box" ])
-    {
-        NSLog(@"contact made");
+    if([ contact.bodyA.node.name isEqualToString: @"box" ] || [ contact.bodyB.node.name isEqualToString: @"box" ]) {
         [box removeFromParent];
         [self createBox];
         current_score++;
+        gameViewController.score.text = [NSString stringWithFormat:@"%d", current_score];
+    }
+    
+    if([ contact.bodyA.node.name isEqualToString: @"bottomWall" ] || [ contact.bodyB.node.name isEqualToString: @"bottomWall" ]) {
+        [gameViewController endGame];
     }
 }
+
 @end
